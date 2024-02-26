@@ -1,6 +1,7 @@
 import adapterStatic from "@sveltejs/adapter-static";
 import sveltePreprocess from "svelte-preprocess";
 import autoprefixer from "autoprefixer";
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 const preprocess = sveltePreprocess({
 	postcss: {
@@ -9,7 +10,7 @@ const preprocess = sveltePreprocess({
 });
 
 const config = {
-	preprocess,
+	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapterStatic()
 	},

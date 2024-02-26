@@ -1,9 +1,17 @@
 <script>
 	import "$styles/app.css";
-	import Header from "$components/Header.svelte";
+	import "mathbox/mathbox.css";
+	import { loaded } from "$stores";
+	import { onMount, tick } from "svelte";
+
+	onMount(async () => {
+		await tick();
+		$loaded = true;
+		// console.log("loaded", $loaded);
+
+	});
 </script>
 
-<Header />
 <main id="content">
 	<slot />
 </main>
