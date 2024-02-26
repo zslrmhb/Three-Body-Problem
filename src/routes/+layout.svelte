@@ -7,6 +7,7 @@
 	onMount(async () => {
 		await tick();
 		$loaded = true;
+		
 		// console.log("loaded", $loaded);
 
 	});
