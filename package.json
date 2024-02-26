@@ -12,6 +12,8 @@
 	},
 	"devDependencies": {
 		"@rollup/plugin-dsv": "^3.0.4",
+		"@skeletonlabs/skeleton": "^2.8.0",
+		"@skeletonlabs/tw-plugin": "^0.3.1",
 		"@sveltejs/adapter-static": "^3.0.1",
 		"@sveltejs/kit": "^2.3.5",
 		"@sveltejs/vite-plugin-svelte": "3.0.1",
