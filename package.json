@@ -18,6 +18,7 @@
 		"archieml": "^0.5.0",
 		"autoprefixer": "^10.4.17",
 		"d3": "^7.8.5",
+		"daisyui": "^4.7.2",
 		"layercake": "^8.0.2",
 		"lodash.debounce": "^4.0.8",
 		"lucide-svelte": "^0.294.0",
