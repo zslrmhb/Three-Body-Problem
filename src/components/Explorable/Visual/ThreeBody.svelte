@@ -2,11 +2,11 @@
 	import { T } from "@threlte/core";
 	import { OrbitControls } from "@threlte/extras";
 	import { Attractor, Collider, RigidBody } from "@threlte/rapier";
-	import { MeshBasicMaterial, SphereGeometry } from "three";
 
-	let type = "static";
-	const geometry = new SphereGeometry(1);
-	const material = new MeshBasicMaterial({ color: "red" });
+	import Sun from "./Sun.svelte";
+
+	export let type = "static";
+
 	const config = {
 		static: {
 			type: "static",
@@ -35,18 +35,19 @@
 	makeDefault
 	fov={70}
 	far={10000}
+	on:create={({ ref }) => {
+		ref.lookAt(0, 0, 0);
+	}}
 >
-	<OrbitControls enableZoom={true} target.y={20} />
+	<OrbitControls enableDamping enablePan={true} enableZoom={true} />
 </T.PerspectiveCamera>
-
-<T.DirectionalLight castShadow position={[8, 20, -3]} />
 
 <T.GridHelper args={[100]} />
 
 <T.Group position={[-50, 0, 0]}>
 	<RigidBody linearVelocity={[5, -5, 0]}>
 		<Collider shape="ball" args={[1]} mass={config[type].strength} />
-		<T.Mesh {geometry} {material} />
+		<Sun />
 		<Attractor
 			range={config[type].range}
 			gravitationalConstant={config[type].gravitationalConstant}
@@ -56,9 +57,9 @@
 	</RigidBody>
 </T.Group>
 
-<RigidBody linearVelocity={[0, 5, 0]}>
+<RigidBody linearVelocity={[0, 50, 0]}>
 	<Collider shape="ball" args={[1]} mass={config[type].strength} />
-	<T.Mesh {geometry} {material} />
+	<Sun />
 	<Attractor
 		range={config[type].range}
 		gravitationalConstant={config[type].gravitationalConstant}
@@ -68,9 +69,9 @@
 </RigidBody>
 
 <T.Group position={[50, 0, 0]}>
-	<RigidBody linearVelocity={[-5, 0, 5]}>
+	<RigidBody linearVelocity={[5, -5, 0]}>
 		<Collider shape="ball" args={[1]} mass={config[type].strength} />
-		<T.Mesh {geometry} {material} />
+		<Sun />
 		<Attractor
 			range={config[type].range}
 			gravitationalConstant={config[type].gravitationalConstant}

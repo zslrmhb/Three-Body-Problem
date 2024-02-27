@@ -3,5 +3,5 @@
 	import ThreeBody from "./ThreeBody.svelte";
 </script>
 
-<TwoBody />
-<!-- <ThreeBody /> -->
+<TwoBody type={"static"} />
+<!-- <ThreeBody type={"static"} /> -->

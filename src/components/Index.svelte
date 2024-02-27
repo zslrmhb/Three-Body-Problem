@@ -19,7 +19,7 @@
 </div> -->
 
 <article class="">
-	<div id="canvas-wrapper" class="h-screen ">
+	<div id="canvas-wrapper" class=" h-screen">
 		<Threlte />
 	</div>
 </article>
