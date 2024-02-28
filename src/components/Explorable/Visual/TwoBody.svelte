@@ -4,6 +4,7 @@
 	import { Attractor, Collider, RigidBody } from "@threlte/rapier";
 
 	import Sun from "./Sun.svelte";
+	import Earth from "./Earth.svelte";
 
 	export let type = "static";
 
@@ -43,6 +44,7 @@
 </T.PerspectiveCamera>
 
 <T.GridHelper args={[100]} />
+<!-- <Earth /> -->
 
 <T.Group position={[-50, 0, 0]}>
 	<RigidBody linearVelocity={[5, -5, 0]}>
