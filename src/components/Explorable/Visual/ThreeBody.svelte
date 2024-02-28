@@ -39,7 +39,7 @@
 		ref.lookAt(0, 0, 0);
 	}}
 >
-	<OrbitControls enableDamping enablePan={true} enableZoom={true} />
+	<!-- <OrbitControls enableDamping enablePan={true} enableZoom={true} /> -->
 </T.PerspectiveCamera>
 
 <T.GridHelper args={[100]} />

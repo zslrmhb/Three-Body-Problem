@@ -15,7 +15,7 @@
 
 <!-- Some loader -->
 
-<article class="relative bg-base-300 w-[calc(100%+65ch)] hidden lg:flex">
+<article class="relative bg-base-300 w-[calc(100%+20ch)] hidden lg:flex">
 	<div
 		id="canvas-wrapper"
 		class="sticky top-0 flex-1 min-w-0 h-screen bg-base-300"
