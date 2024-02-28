@@ -23,7 +23,7 @@
 				rel="noopener noreferrer"
 				class="underline decoration-2 underline-offset-8 decoration-neutral text-secondary"
 				>Hongbin Miao</a
-			>
+			> &
 			<a
 				href="https://github.com/Qz07"
 				target="_blank"
