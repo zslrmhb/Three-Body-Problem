@@ -4,7 +4,6 @@
 	import ThreeBody from "./ThreeBody.svelte";
 	import { gsap } from "$utils/gsap.js";
 	import { onMount } from "svelte";
-	import { showTitle } from "$stores";
 
 	let showIntro = false;
 	let showTwoBody = false;

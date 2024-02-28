@@ -1,6 +1,6 @@
 <script>
 	import { gsap, ScrollTrigger } from "$utils/gsap.js";
-	import { debug, loaded, showTitle } from "$stores";
+	import { debug, loaded} from "$stores";
 	import Title from "./Explorable/Title.svelte";
 	import Article from "./Explorable/Text/Article.svelte";
 	import Threlte from "./Explorable/Visual/Threlte.svelte";
@@ -11,9 +11,9 @@
 	}
 </script>
 
-{#if $showTitle}
+
 	<Title />
-{/if}
+
 
 <!-- Some loader -->
 
