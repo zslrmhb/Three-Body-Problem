@@ -1,13 +1,11 @@
 <script>
+	import Hero from "./Hero.svelte";
 	import Intro from "./Intro.svelte";
 	import TwoBody from "./TwoBody.svelte";
 	import ThreeBody from "./ThreeBody.svelte";
 	import { gsap } from "$utils/gsap.js";
 	import { onMount } from "svelte";
-
-	let showIntro = false;
-	let showTwoBody = false;
-	let showThreeBody = false;
+	import { showHero, showIntro, showTwoBody, showThreeBody } from "$stores";
 
 	let mounted = false;
 	onMount(() => {
@@ -27,7 +25,13 @@
 					trigger: "#title-spacer",
 					start: "top top",
 					end: "+=2000",
-					scrub: 1
+					scrub: 1,
+					onLeave: () => {
+						$showHero = false;
+					},
+					onLeaveBack: () => {
+						$showHero = true;
+					}
 				}
 			})
 			.add("step-1")
@@ -39,16 +43,16 @@
 				start: "top center",
 				end: "bottom center",
 				onEnter: () => {
-					showIntro = true;
+					$showIntro = true;
 				},
 				onLeave: () => {
-					showIntro = false;
+					$showIntro = false;
 				},
 				onEnterBack: () => {
-					showIntro = true;
+					$showIntro = true;
 				},
 				onLeaveBack: () => {
-					showIntro = false;
+					$showIntro = false;
 				}
 			}
 		});
@@ -58,16 +62,16 @@
 				start: "top center",
 				end: "bottom center",
 				onEnter: () => {
-					showTwoBody = true;
+					$showTwoBody = true;
 				},
 				onLeave: () => {
-					showTwoBody = false;
+					$showTwoBody = false;
 				},
 				onEnterBack: () => {
-					showTwoBody = true;
+					$showTwoBody = true;
 				},
 				onLeaveBack: () => {
-					showTwoBody = false;
+					$showTwoBody = false;
 				}
 			}
 		});
@@ -77,28 +81,32 @@
 				start: "top center",
 				end: "bottom center",
 				onEnter: () => {
-					showThreeBody = true;
+					$showThreeBody = true;
 				},
 				onLeave: () => {
-					showThreeBody = false;
+					$showThreeBody = false;
 				},
 				onEnterBack: () => {
-					showThreeBody = true;
+					$showThreeBody = true;
 				},
 				onLeaveBack: () => {
-					showThreeBody = false;
+					$showThreeBody = false;
 				}
 			}
 		});
 	}
 </script>
 
-{#if showIntro}
+{#if $showHero}
+	<Hero />
+{/if}
+
+{#if $showIntro}
 	<Intro type={"static"} />
 {/if}
-{#if showTwoBody}
+{#if $showTwoBody}
 	<TwoBody type={"static"} />
 {/if}
-{#if showThreeBody}
+{#if $showThreeBody}
 	<ThreeBody type={"static"} />
 {/if}
