@@ -6,7 +6,7 @@
 	import Threlte from "./Explorable/Visual/Threlte.svelte";
 
 	$: if ($loaded) {
-		gsap.set("body", { overflowY: "visible", overflowX: "hidden" });
+		// gsap.set("body", { overflowY: "visible", overflowX: "hidden" });
 		ScrollTrigger.refresh();
 	}
 </script>
