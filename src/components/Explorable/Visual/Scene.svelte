@@ -4,9 +4,8 @@
 	import ThreeBody from "./ThreeBody.svelte";
 	import { gsap } from "$utils/gsap.js";
 	import { onMount } from "svelte";
-	import { showTitle } from "$stores"; 
+	import { showTitle } from "$stores";
 
-	
 	let showIntro = false;
 	let showTwoBody = false;
 	let showThreeBody = false;
@@ -19,14 +18,22 @@
 	$: if (mounted) animate();
 
 	function animate() {
-	
-		gsap.to("#title-spacer", {
-			scrollTrigger: {
-				trigger: "#title-spacer",
-				start: "top top",
-				end: "+=2000"
-			}
+		gsap.set("#title", {
+			transformPerspective: 400
 		});
+
+		gsap
+			.timeline({
+				scrollTrigger: {
+					trigger: "#title-spacer",
+					start: "top top",
+					end: "+=2000",
+					scrub: 1
+				}
+			})
+			.add("step-1")
+			.to("#title", { autoAlpha: 0 }, "step-1");
+
 		gsap.to("#section-1", {
 			scrollTrigger: {
 				trigger: "#section-1",
