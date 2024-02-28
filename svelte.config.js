@@ -1,6 +1,7 @@
 import adapterStatic from "@sveltejs/adapter-static";
 import sveltePreprocess from "svelte-preprocess";
 import autoprefixer from "autoprefixer";
+import sequence from "svelte-sequential-preprocessor";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 
 const preprocess = sveltePreprocess({
