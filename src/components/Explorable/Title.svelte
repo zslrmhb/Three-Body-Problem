@@ -5,7 +5,7 @@
 	id="title"
 	class="relative lg:fixed lg:top-0 lg:left-0 lg:right-0 z-10 grid place-content-center pt-16 px-10 max-w-5xl mx-auto"
 >
-	<div class="flex flex-col gap-5 items-center relative">
+	<div class="flex flex-col gap-5 items-left relative">
 		<h1 class="text-7xl sm:text-8xl md:text-9xl font-display drop-shadow-xl">
 			Three <br /> Body <br /> Problem
 		</h1>
