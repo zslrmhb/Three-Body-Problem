@@ -37,63 +37,63 @@
 			.add("step-1")
 			.to("#title", { autoAlpha: 0 }, "step-1");
 
-		// gsap.to("#section-1", {
-		// 	scrollTrigger: {
-		// 		trigger: "#section-1",
-		// 		start: "top center",
-		// 		end: "bottom center",
-		// 		onEnter: () => {
-		// 			$showIntro = true;
-		// 		},
-		// 		onLeave: () => {
-		// 			$showIntro = false;
-		// 		},
-		// 		onEnterBack: () => {
-		// 			$showIntro = true;
-		// 		},
-		// 		onLeaveBack: () => {
-		// 			$showIntro = false;
-		// 		}
-		// 	}
-		// });
-		// gsap.to("#section-2", {
-		// 	scrollTrigger: {
-		// 		trigger: "#section-2",
-		// 		start: "top center",
-		// 		end: "bottom center",
-		// 		onEnter: () => {
-		// 			$showTwoBody = true;
-		// 		},
-		// 		onLeave: () => {
-		// 			$showTwoBody = false;
-		// 		},
-		// 		onEnterBack: () => {
-		// 			$showTwoBody = true;
-		// 		},
-		// 		onLeaveBack: () => {
-		// 			$showTwoBody = false;
-		// 		}
-		// 	}
-		// });
-		// gsap.to("#section-3", {
-		// 	scrollTrigger: {
-		// 		trigger: "#section-3",
-		// 		start: "top center",
-		// 		end: "bottom center",
-		// 		onEnter: () => {
-		// 			$showThreeBody = true;
-		// 		},
-		// 		onLeave: () => {
-		// 			$showThreeBody = false;
-		// 		},
-		// 		onEnterBack: () => {
-		// 			$showThreeBody = true;
-		// 		},
-		// 		onLeaveBack: () => {
-		// 			$showThreeBody = false;
-		// 		}
-		// 	}
-		// });
+		gsap.to("#section-1", {
+			scrollTrigger: {
+				trigger: "#section-1",
+				start: "top center",
+				end: "bottom center",
+				onEnter: () => {
+					$showIntro = true;
+				},
+				onLeave: () => {
+					$showIntro = false;
+				},
+				onEnterBack: () => {
+					$showIntro = true;
+				},
+				onLeaveBack: () => {
+					$showIntro = false;
+				}
+			}
+		});
+		gsap.to("#section-2", {
+			scrollTrigger: {
+				trigger: "#section-2",
+				start: "top center",
+				end: "bottom center",
+				onEnter: () => {
+					$showTwoBody = true;
+				},
+				onLeave: () => {
+					$showTwoBody = false;
+				},
+				onEnterBack: () => {
+					$showTwoBody = true;
+				},
+				onLeaveBack: () => {
+					$showTwoBody = false;
+				}
+			}
+		});
+		gsap.to("#section-3", {
+			scrollTrigger: {
+				trigger: "#section-3",
+				start: "top center",
+				end: "bottom center",
+				onEnter: () => {
+					$showThreeBody = true;
+				},
+				onLeave: () => {
+					$showThreeBody = false;
+				},
+				onEnterBack: () => {
+					$showThreeBody = true;
+				},
+				onLeaveBack: () => {
+					$showThreeBody = false;
+				}
+			}
+		});
 	}
 </script>
 
