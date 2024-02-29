@@ -30,13 +30,13 @@
 </script>
 
 <T.PerspectiveCamera
-	position.y={50}
+	position.y={20}
 	position.z={100}
 	makeDefault
 	fov={70}
 	far={10000}
 	on:create={({ ref }) => {
-		ref.lookAt(0, 0, 0);
+		ref.lookAt(0, -10, 0);
 	}}
 >
 	<!-- <OrbitControls enableDamping enablePan={true} enableZoom={true} /> -->

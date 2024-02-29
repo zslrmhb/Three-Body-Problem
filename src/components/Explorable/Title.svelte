@@ -12,7 +12,8 @@
 
 		<div class="text-lg md:text-xl font-displayAlt text-right">
 			Should philosophy guide experiments, or should experiments guide
-			philosophy? <br /> - Liu Cixin, <i>The Three-Body Problem</i>
+			philosophy? <br />
+			- Liu Cixin, <i>The Three-Body Problem</i>
 		</div>
 		<div
 			class="relative top-0 right-0 font-displayAlt text-2xl sm:text-3xl md:text-4xl"

@@ -95,12 +95,12 @@
 			}
 		});
 	}
+
 </script>
 
 {#if $showHero}
 	<Hero />
 {/if}
-
 {#if $showIntro}
 	<Intro type={"static"} />
 {/if}

@@ -4,7 +4,6 @@
 	import Title from "./Explorable/Title.svelte";
 	import Article from "./Explorable/Text/Article.svelte";
 	import Threlte from "./Explorable/Visual/Threlte.svelte";
-
 	$: if ($loaded) {
 		// gsap.set("body", { overflowY: "visible", overflowX: "hidden" });
 		ScrollTrigger.refresh();
@@ -13,14 +12,11 @@
 
 <Title />
 
-<!-- Some loader -->
-
-<article class="relative bg-base-300 w-[calc(100%+20ch)] hidden lg:flex">
-	<div
-		id="canvas-wrapper"
-		class="sticky top-0 flex-1 min-w-0 h-screen bg-base-300"
-	>
+<article class="relative flex-col hidden lg:flex">
+	<div id="canvas-wrapper" class="sticky top-0 min-w-0 h-screen">
 		<Threlte />
 	</div>
-	<Article />
+	<div id="article" class="text-5xl z-10 flex flex-col items-center w-full h-full">
+		<Article />
+	</div>
 </article>
