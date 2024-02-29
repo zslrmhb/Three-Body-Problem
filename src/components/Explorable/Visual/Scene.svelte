@@ -15,9 +15,9 @@
 	$: if (mounted) animate();
 
 	function animate() {
-		gsap.set("#title", {
-			transformPerspective: 400
-		});
+		// gsap.set("#title", {
+		// 	transformPerspective: 400
+		// });
 
 		gsap
 			.timeline({
@@ -42,6 +42,7 @@
 				trigger: "#section-1",
 				start: "top center",
 				end: "bottom center",
+				markers: 1,
 				onEnter: () => {
 					$showIntro = true;
 				},
@@ -61,6 +62,7 @@
 				trigger: "#section-2",
 				start: "top center",
 				end: "bottom center",
+				markers: 1,
 				onEnter: () => {
 					$showTwoBody = true;
 				},

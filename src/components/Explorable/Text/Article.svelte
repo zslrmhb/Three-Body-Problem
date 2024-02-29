@@ -8,7 +8,7 @@
 <!-- classNames="animate" -->
 <Section id="section-1" class="text-7xl">
 	This is section 1
-	<Part id="st-1" class="sticky bottom-0 text-center">This is part 1</Part>
+	<Part id="st-1" class="">This is part 1</Part>
 	<Part id="st-2">This is part 2</Part>
 	<Part id="st-3">This is part 3</Part>
 	<Part id="st-4">This is part 4</Part>
