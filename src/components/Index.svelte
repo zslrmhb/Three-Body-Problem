@@ -4,6 +4,8 @@
 	import Title from "./Explorable/Title.svelte";
 	import Article from "./Explorable/Text/Article.svelte";
 	import Threlte from "./Explorable/Visual/Threlte.svelte";
+	import Footer from "./Explorable/Footer.svelte";
+	import Playground from "./Explorable/Visual/Playground.svelte";
 	$: if ($loaded) {
 		// gsap.set("body", { overflowY: "visible", overflowX: "hidden" });
 		ScrollTrigger.refresh();
@@ -20,3 +22,6 @@
 		<Article />
 	</div>
 </article>
+
+<Playground />
+<Footer/>

@@ -5,7 +5,13 @@
 	import ThreeBody from "./ThreeBody.svelte";
 	import { gsap } from "$utils/gsap.js";
 	import { onMount } from "svelte";
-	import { showHero, showIntro, showTwoBody, showThreeBody } from "$stores";
+	import {
+		debug,
+		showHero,
+		showIntro,
+		showTwoBody,
+		showThreeBody
+	} from "$stores";
 
 	let mounted = false;
 	onMount(() => {
@@ -42,7 +48,7 @@
 				trigger: "#section-1",
 				start: "top center",
 				end: "bottom center",
-				markers: 1,
+				markers: $debug,
 				onEnter: () => {
 					$showIntro = true;
 				},
@@ -62,7 +68,7 @@
 				trigger: "#section-2",
 				start: "top center",
 				end: "bottom center",
-				markers: 1,
+				markers: $debug,
 				onEnter: () => {
 					$showTwoBody = true;
 				},
@@ -82,6 +88,7 @@
 				trigger: "#section-3",
 				start: "top center",
 				end: "bottom center",
+				markers: $debug,
 				onEnter: () => {
 					$showThreeBody = true;
 				},
