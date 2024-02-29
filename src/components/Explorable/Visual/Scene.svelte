@@ -95,7 +95,6 @@
 			}
 		});
 	}
-
 </script>
 
 {#if $showHero}
