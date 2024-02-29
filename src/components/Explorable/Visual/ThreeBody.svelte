@@ -44,7 +44,7 @@
 
 <T.GridHelper args={[100]} />
 
-<T.Group position={[-50, 0, 0]}>
+<T.Group position={[-50, 0, 60]}>
 	<RigidBody linearVelocity={[5, -5, 0]}>
 		<Collider shape="ball" args={[1]} mass={config[type].strength} />
 		<Sun />
@@ -57,7 +57,7 @@
 	</RigidBody>
 </T.Group>
 
-<RigidBody linearVelocity={[0, 50, 0]}>
+<RigidBody linearVelocity={[0, 10, -20]}>
 	<Collider shape="ball" args={[1]} mass={config[type].strength} />
 	<Sun />
 	<Attractor
@@ -68,8 +68,8 @@
 	/>
 </RigidBody>
 
-<T.Group position={[50, 0, 0]}>
-	<RigidBody linearVelocity={[5, -5, 0]}>
+<T.Group position={[50, 0, 60]}>
+	<RigidBody linearVelocity={[-5, 0, 5]}>
 		<Collider shape="ball" args={[1]} mass={config[type].strength} />
 		<Sun />
 		<Attractor

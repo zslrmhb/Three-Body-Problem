@@ -6,6 +6,8 @@ if (typeof window !== "undefined") {
 	gsap.registerPlugin(ScrollTrigger);
 	gsap.registerPlugin(ScrollToPlugin);
 }
-
+ScrollTrigger.defaults({
+	markers: 1
+});
 export * from "gsap";
 export { ScrollTrigger };

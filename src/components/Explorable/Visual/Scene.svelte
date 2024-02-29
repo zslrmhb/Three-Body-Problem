@@ -48,7 +48,7 @@
 				trigger: "#section-1",
 				start: "top center",
 				end: "bottom center",
-				markers: $debug,
+
 				onEnter: () => {
 					$showIntro = true;
 				},
@@ -68,7 +68,7 @@
 				trigger: "#section-2",
 				start: "top center",
 				end: "bottom center",
-				markers: $debug,
+
 				onEnter: () => {
 					$showTwoBody = true;
 				},
@@ -88,7 +88,7 @@
 				trigger: "#section-3",
 				start: "top center",
 				end: "bottom center",
-				markers: $debug,
+
 				onEnter: () => {
 					$showThreeBody = true;
 				},
