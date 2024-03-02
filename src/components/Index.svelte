@@ -23,5 +23,7 @@
 	</div>
 </article>
 
-<Playground />
-<Footer />
+<div class="relative flex-col hidden lg:flex">
+	<Playground />
+	<Footer />
+</div>

@@ -1,4 +1,5 @@
 <script>
+	import Bold from "./Text/Bold.svelte";
 </script>
 
 <div id="title" class="fixed inset-0 z-10 flex items-center justify-center">
@@ -30,6 +31,14 @@
 				class="underline decoration-2 underline-offset-8 decoration-neutral text-secondary"
 				>Qirui Zheng</a
 			>
+		</div>
+		<div
+			class="relative alert bg-transparent border-0 flex flex-col mt-10 lg:hidden"
+		>
+			<div class="text-xl sm:text-2xl text-center">
+				Whoops! This interactive is better viewed on <Bold>desktop</Bold> with a
+				<Bold>larger screen</Bold>!
+			</div>
 		</div>
 	</div>
 </div>
