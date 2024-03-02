@@ -6,8 +6,8 @@
 
 <div id="title-spacer" class="h-[2500px]" />
 <!-- classNames="animate" -->
-<Section id="section-1" >
-	This is section 1
+<Section id="section-1">
+	Try Panning the Grid!
 	<Part id="st-1">This is part 1</Part>
 	<Part id="st-2">This is part 2</Part>
 	<Part id="st-3">This is part 3</Part>
@@ -16,8 +16,8 @@
 
 <Spacer />
 
-<Section id="section-2" >
-	This is section 2
+<Section id="section-2">
+	Try Panning the Grid!
 	<Part id="st-5">This is part 5</Part>
 	<Part id="st-6">This is part 6</Part>
 	<Part id="st-7">This is part 7</Part>
@@ -26,8 +26,8 @@
 
 <Spacer />
 
-<Section id="section-3" >
-	This is section 3
+<Section id="section-3">
+	Try Panning the Grid!
 	<Part id="st-9">This is part 9</Part>
 	<Part id="st-10">This is part 10</Part>
 	<Part id="st-11">This is part 11</Part>

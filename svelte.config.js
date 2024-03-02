@@ -19,6 +19,9 @@ const config = {
 		// experimental: {
 		// 	inspector: { holdMode: true },
 		// }
+	},
+	compileOptions: {
+		accessors: true
 	}
 };
 

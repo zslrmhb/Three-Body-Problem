@@ -18,10 +18,10 @@
 	<div id="canvas-wrapper" class="sticky top-0 min-w-0 h-screen">
 		<Threlte />
 	</div>
-	<div id="article" class="text-5xl z-10 flex flex-col items-center w-full h-full">
+	<div id="article" class="text-5xl flex flex-col items-center w-full h-full">
 		<Article />
 	</div>
 </article>
 
 <Playground />
-<Footer/>
+<Footer />
