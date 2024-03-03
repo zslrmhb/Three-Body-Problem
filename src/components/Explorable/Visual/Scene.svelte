@@ -62,14 +62,72 @@
 		}
 	];
 
+	const groupScenes = {
+		"group-1": ["st-3", "st-4", "st-5"],
+		"group-2": ["st-6", "st-7"],
+		"group-3": ["st-10", "st-11"]
+	};
+
 	function setupAnimations() {
 		titleAnimation();
 		sectionsConfig.forEach((sectionConfig) => {
 			sectionAnimation(sectionConfig);
 			sectionConfig.parts.forEach((partId) => {
-				partAnimation(partId, sectionConfig);
+				if (!isPartOfGroup(partId)) {
+					partAnimation(partId, sectionConfig);
+					console.log(partId);
+				}
 			});
+			handleGroupScenes(sectionConfig);
 		});
+	}
+
+	function isPartOfGroup(partId) {
+		return Object.values(groupScenes).some((group) => group.includes(partId));
+	}
+
+	function handleGroupScenes(sectionConfig) {
+		Object.entries(groupScenes).forEach(([groupId, parts]) => {
+			if (parts.some((part) => sectionConfig.parts.includes(part))) {
+				groupSceneAnimation(groupId, parts, sectionConfig);
+			}
+		});
+	}
+
+	function groupSceneAnimation(groupId, parts, sectionConfig) {
+		const firstPartId = parts[0];
+		const lastPartId = parts[parts.length - 1];
+
+		const config = sectionConfig.partConfigs[firstPartId] || {};
+
+		const updateState = (entering) => {
+			sectionConfig.store.set(entering);
+			if (config) {
+				showEarth = entering && config.showEarth;
+				showSun = entering && config.showSun;
+				isMoving = entering && config.isMoving;
+			}
+		};
+
+		gsap.fromTo(
+			`#${firstPartId}`,
+			{ autoAlpha: 0 },
+			{
+				scrollTrigger: {
+					trigger: `#${firstPartId}`,
+					start: "top 80%",
+					endTrigger: `#${lastPartId}`,
+					end: "bottom 20%",
+					toggleActions: "play reverse play reverse",
+					onEnter: () => updateState(true),
+					onLeave: () => updateState(false),
+					onEnterBack: () => updateState(true),
+					onLeaveBack: () => updateState(false)
+				},
+				autoAlpha: 1,
+				duration: 2
+			}
+		);
 	}
 
 	function sectionAnimation(sectionConfig) {
@@ -79,8 +137,8 @@
 			{
 				scrollTrigger: {
 					trigger: `#${sectionConfig.id}`,
-					start: "top 100%",
-					end: "bottom 60%",
+					start: "top 80%",
+					end: "bottom 20%",
 					toggleActions: "play reverse play reverse"
 				},
 				autoAlpha: 1,
@@ -107,8 +165,8 @@
 			{
 				scrollTrigger: {
 					trigger: `#${partId}`,
-					start: "top 100%",
-					end: "bottom 60%",
+					start: "top 80%",
+					end: "bottom 20%",
 					toggleActions: "play reverse play reverse",
 					onEnter: () => updateState(true),
 					onLeave: () => updateState(false),
