@@ -1,54 +1,57 @@
 <script>
-	import { onMount } from "svelte";
-	import { T } from "@threlte/core";
-	import { OrbitControls } from "@threlte/extras";
+	import { T, useTask } from "@threlte/core";
+	import {
+		OrbitControls,
+		MeshLineGeometry,
+		MeshLineMaterial
+	} from "@threlte/extras";
 	import { Attractor, Collider, RigidBody } from "@threlte/rapier";
+	import { Vector3 } from "three";
 	import Sun from "./Sun.svelte";
+	import Earth from "./Earth.svelte";
 
 	export let type = "static";
+	export let showEarth, showSun, isMoving;
 
-	let body;
-	// let previousVelocity = null;
-	// let previousTime = null;
-	// let velocityCheckInterval;
+	let body1;
+	let body2;
+	let body3;
+	$: bodies = [body1, body2, body3];
+	const MAX_TRAJECTORY_POINTS = 2000;
+	let trajectory1 = Array.from(
+		{ length: MAX_TRAJECTORY_POINTS },
+		() => new Vector3(0, 0, 0)
+	);
+	let trajectory2 = Array.from(
+		{ length: MAX_TRAJECTORY_POINTS },
+		() => new Vector3(0, 0, 0)
+	);
+	let trajectory3 = Array.from(
+		{ length: MAX_TRAJECTORY_POINTS },
+		() => new Vector3(0, 0, 0)
+	);
+	$: trajectories = [trajectory1, trajectory2, trajectory3];
 
-	// onMount(() => {
-	// 	velocityCheckInterval = setInterval(() => {
-	// 		if (body) {
-	// 			const currentTime = Date.now();
-	// 			const currentVelocity = body.linvel();
+	let updateIndex = 0;
 
-	// 			// console.log("center of mass", body.worldCom());
-	// 			// console.log("translation", body.translation());
+	useTask(() => {
+		for (let i = 0; i < bodies.length; i++) {
+			if (bodies[i] != null) {
+				const currentPos = bodies[i].translation();
+				trajectories[i][updateIndex].set(
+					currentPos.x,
+					currentPos.y,
+					currentPos.z
+				);
+			}
+		}
+		updateIndex = (updateIndex + 1) % MAX_TRAJECTORY_POINTS;
 
-	// 			if (previousVelocity && previousTime) {
-	// 				const timeInterval = (currentTime - previousTime) / 100;
-	// 				const acceleration = {
-	// 					x: (currentVelocity.x - previousVelocity.x) / timeInterval,
-	// 					y: (currentVelocity.y - previousVelocity.y) / timeInterval,
-	// 					z: (currentVelocity.z - previousVelocity.z) / timeInterval
-	// 				};
-	// 				console.log("Acceleration:", acceleration);
-	// 			}
-
-	// 			if (
-	// 				!previousVelocity ||
-	// 				currentVelocity.x !== previousVelocity.x ||
-	// 				currentVelocity.y !== previousVelocity.y ||
-	// 				currentVelocity.z !== previousVelocity.z
-	// 			) {
-	// 				previousVelocity = { ...currentVelocity };
-	// 				previousTime = currentTime;
-	// 			}
-	// 		}
-	// 	}, 100);
-
-	// 	return () => {
-	// 		if (velocityCheckInterval) {
-	// 			clearInterval(velocityCheckInterval);
-	// 		}
-	// 	};
-	// });
+		// Trigger reactivity
+		trajectory1 = [...trajectory1];
+		trajectory2 = [...trajectory2];
+		trajectory3 = [...trajectory3];
+	});
 
 	const config = {
 		static: {
@@ -56,21 +59,24 @@
 			strength: 3,
 			range: 100,
 			gravitationalConstant: undefined
-		},
-		linear: {
-			type: "linear",
-			strength: 1,
-			range: 100,
-			gravitationalConstant: undefined
-		},
-		newtonian: {
-			type: "newtonian",
-			strength: 10,
-			range: 100,
-			gravitationalConstant: 10
 		}
 	};
 </script>
+
+{#if isMoving}
+	<T.Mesh>
+		<MeshLineGeometry points={trajectory1} />
+		<MeshLineMaterial width={0.05} color="#606060" />
+	</T.Mesh>
+	<T.Mesh>
+		<MeshLineGeometry points={trajectory2} />
+		<MeshLineMaterial width={0.05} color="#606060" />
+	</T.Mesh>
+	<T.Mesh>
+		<MeshLineGeometry points={trajectory3} />
+		<MeshLineMaterial width={0.05} color="#606060" />
+	</T.Mesh>
+{/if}
 
 <T.PerspectiveCamera
 	position.y={20}
@@ -85,42 +91,71 @@
 	<OrbitControls enableDamping enablePan={true} enableZoom={false} />
 </T.PerspectiveCamera>
 
-<T.GridHelper args={[100]} />
+<!-- <T.GridHelper args={[100]} /> -->
 
-<T.Group position={[-60, 0, 50]}>
-	<RigidBody linearVelocity={[5, 0, 0]} bind:rigidBody={body}>
-		<!-- <RigidBody linearVelocity={[5, -5, 0]} bind:rigidBody={body}> -->
-		<Collider shape="ball" args={[1]} mass={config[type].strength} />
+{#if showSun}
+	<T.Group position={isMoving ? [-30, 30, 50] : [50, 0, 0]}>
+		<RigidBody
+			linearVelocity={isMoving ? [5, 0, 0] : [0, 0, 0]}
+			bind:rigidBody={body1}
+		>
+			<Collider shape="ball" args={[1]} mass={10} />
+			<Sun />
+			{#if isMoving}
+				<Attractor
+					range={100}
+					gravitationalConstant={undefined}
+					strength={3}
+					gravityType={"static"}
+				/>
+			{/if}
+		</RigidBody>
+	</T.Group>
+
+	<RigidBody
+		linearVelocity={isMoving ? [0, 5, -20] : [0, 0, 0]}
+		bind:rigidBody={body2}
+	>
+		<Collider shape="ball" args={[1]} mass={10} />
 		<Sun />
+		{#if isMoving}
+			<Attractor
+				range={100}
+				gravitationalConstant={undefined}
+				strength={3}
+				gravityType={"static"}
+			/>
+		{/if}
+	</RigidBody>
+
+	<T.Group position={isMoving ? [30, 30, 50] : [-50, 0, 0]}>
+		<RigidBody
+			linearVelocity={isMoving ? [-5, 0, 5] : [0, 0, 0]}
+			bind:rigidBody={body3}
+		>
+			<Collider shape="ball" args={[1]} mass={10} />
+			<Sun />
+			{#if isMoving}
+				<Attractor
+					range={100}
+					gravitationalConstant={undefined}
+					strength={3}
+					gravityType={"static"}
+				/>
+			{/if}
+		</RigidBody>
+	</T.Group>
+{/if}
+
+{#if showEarth}
+	<RigidBody linearVelocity={isMoving ? [1, 1, 1] : [0, 0, 0]}>
+		<Collider shape="ball" args={[1]} mass={0.1} />
+		<Earth />
 		<Attractor
-			range={config[type].range}
-			gravitationalConstant={config[type].gravitationalConstant}
-			strength={config[type].strength}
-			gravityType={type}
+			range={100}
+			gravitationalConstant={undefined}
+			strength={3}
+			gravityType={"static"}
 		/>
 	</RigidBody>
-</T.Group>
-
-<RigidBody linearVelocity={[0, 10, -20]}>
-	<Collider shape="ball" args={[1]} mass={config[type].strength} />
-	<Sun />
-	<Attractor
-		range={config[type].range}
-		gravitationalConstant={config[type].gravitationalConstant}
-		strength={config[type].strength}
-		gravityType={type}
-	/>
-</RigidBody>
-
-<T.Group position={[50, 0, 60]}>
-	<RigidBody linearVelocity={[-5, 0, 5]}>
-		<Collider shape="ball" args={[1]} mass={config[type].strength} />
-		<Sun />
-		<Attractor
-			range={config[type].range}
-			gravitationalConstant={config[type].gravitationalConstant}
-			strength={config[type].strength}
-			gravityType={type}
-		/>
-	</RigidBody>
-</T.Group>
+{/if}

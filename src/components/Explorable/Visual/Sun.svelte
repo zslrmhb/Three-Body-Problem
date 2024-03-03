@@ -8,10 +8,10 @@
 <T.Group position.y={position.y} position.x={position.x}>
 	<T.Mesh>
 		<T.MeshBasicMaterial color="yellow" />
-		<T.SphereGeometry args={[3]} />
+		<T.SphereGeometry args={[6]} />
 	</T.Mesh>
 	<T.Mesh>
 		<FakeGlowMaterial glowColor="yellow" />
-		<T.SphereGeometry args={[5]} />
+		<T.SphereGeometry args={[10]} />
 	</T.Mesh>
 </T.Group>

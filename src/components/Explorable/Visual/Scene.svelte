@@ -5,104 +5,136 @@
 	import ThreeBody from "./ThreeBody.svelte";
 	import { gsap } from "$utils/gsap.js";
 	import { onMount } from "svelte";
-	import {
-		debug,
-		showHero,
-		showIntro,
-		showTwoBody,
-		showThreeBody
-	} from "$stores";
+	import { showHero, showIntro, showTwoBody, showThreeBody } from "$stores";
 
 	let mounted = false;
+	let showEarth = false;
+	let showSun = false;
+	let isMoving = false;
 	onMount(() => {
 		mounted = true;
+		if (mounted) {
+			setupAnimations();
+		}
 	});
 
-	$: if (mounted) animate();
+	const partConfigs = {
+		"st-1": { showEarth: true, showSun: false, isMoving: false },
+		"st-2": { showEarth: false, showSun: true, isMoving: false },
+		"st-3": { showEarth: true, showSun: true, isMoving: true },
+		"st-4": { showEarth: true, showSun: true, isMoving: true },
+		"st-5": { showEarth: true, showSun: true, isMoving: true },
+		"st-6": { showEarth: false, showSun: true, isMoving: false },
+		"st-7": { showEarth: false, showSun: true, isMoving: false },
+		"st-8": { showEarth: false, showSun: true, isMoving: true },
+		"st-9": { showEarth: true, showSun: true, isMoving: true },
+		"st-10": { showEarth: false, showSun: true, isMoving: false },
+		"st-11": { showEarth: false, showSun: true, isMoving: false },
+		"st-12": { showEarth: false, showSun: true, isMoving: true },
+		"st-13": { showEarth: true, showSun: true, isMoving: true }
+		// Add more configurations for other parts...
+	};
 
-	function animate() {
-		// gsap.set("#title", {
-		// 	transformPerspective: 400
-		// });
+	const sectionsConfig = [
+		{
+			id: "intro",
+			parts: [],
+			store: showIntro,
+			partConfigs: {}
+		},
+		{
+			id: "section-1",
+			parts: ["st-1", "st-2", "st-3", "st-4", "st-5"],
+			store: showIntro,
+			partConfigs: partConfigs
+		},
+		{
+			id: "section-2",
+			parts: ["st-6", "st-7", "st-8", "st-9"],
+			store: showTwoBody,
+			partConfigs: partConfigs
+		},
+		{
+			id: "section-3",
+			parts: ["st-10", "st-11", "st-12", "st-13"],
+			store: showThreeBody,
+			partConfigs: partConfigs
+		}
+	];
 
+	function setupAnimations() {
+		titleAnimation();
+		sectionsConfig.forEach((sectionConfig) => {
+			sectionAnimation(sectionConfig);
+			sectionConfig.parts.forEach((partId) => {
+				partAnimation(partId, sectionConfig);
+			});
+		});
+	}
+
+	function sectionAnimation(sectionConfig) {
+		gsap.fromTo(
+			`#${sectionConfig.id}`,
+			{ autoAlpha: 0 },
+			{
+				scrollTrigger: {
+					trigger: `#${sectionConfig.id}`,
+					start: "top 100%",
+					end: "bottom 60%",
+					toggleActions: "play reverse play reverse"
+				},
+				autoAlpha: 1,
+				duration: 2
+			}
+		);
+	}
+
+	function partAnimation(partId, sectionConfig) {
+		const config = sectionConfig.partConfigs[partId] || {};
+
+		const updateState = (entering) => {
+			sectionConfig.store.set(entering);
+			if (config) {
+				showEarth = entering && config.showEarth;
+				showSun = entering && config.showSun;
+				isMoving = entering && config.isMoving;
+			}
+		};
+
+		gsap.fromTo(
+			`#${partId}`,
+			{ autoAlpha: 0 },
+			{
+				scrollTrigger: {
+					trigger: `#${partId}`,
+					start: "top 100%",
+					end: "bottom 60%",
+					toggleActions: "play reverse play reverse",
+					onEnter: () => updateState(true),
+					onLeave: () => updateState(false),
+					onEnterBack: () => updateState(true),
+					onLeaveBack: () => updateState(false)
+				},
+				autoAlpha: 1,
+				duration: 2
+			}
+		);
+	}
+
+	function titleAnimation() {
 		gsap
 			.timeline({
 				scrollTrigger: {
 					trigger: "#title-spacer",
 					start: "top top",
-					end: "+=2000",
+					end: "+=1000",
 					scrub: 1,
-					onLeave: () => {
-						$showHero = false;
-					},
-					onLeaveBack: () => {
-						$showHero = true;
-					}
+					onLeave: () => showHero.set(false),
+					onLeaveBack: () => showHero.set(true)
 				}
 			})
 			.add("step-1")
 			.to("#title", { autoAlpha: 0 }, "step-1");
-
-		gsap.to("#section-1", {
-			scrollTrigger: {
-				trigger: "#section-1",
-				start: "top center",
-				end: "bottom center",
-
-				onEnter: () => {
-					$showIntro = true;
-				},
-				onLeave: () => {
-					$showIntro = false;
-				},
-				onEnterBack: () => {
-					$showIntro = true;
-				},
-				onLeaveBack: () => {
-					$showIntro = false;
-				}
-			}
-		});
-		gsap.to("#section-2", {
-			scrollTrigger: {
-				trigger: "#section-2",
-				start: "top center",
-				end: "bottom center",
-
-				onEnter: () => {
-					$showTwoBody = true;
-				},
-				onLeave: () => {
-					$showTwoBody = false;
-				},
-				onEnterBack: () => {
-					$showTwoBody = true;
-				},
-				onLeaveBack: () => {
-					$showTwoBody = false;
-				}
-			}
-		});
-		gsap.to("#section-3", {
-			scrollTrigger: {
-				trigger: "#section-3",
-				start: "top center",
-				end: "bottom center",
-
-				onEnter: () => {
-					$showThreeBody = true;
-				},
-				onLeave: () => {
-					$showThreeBody = false;
-				},
-				onEnterBack: () => {
-					$showThreeBody = true;
-				},
-				onLeaveBack: () => {
-					$showThreeBody = false;
-				}
-			}
-		});
 	}
 </script>
 
@@ -110,11 +142,11 @@
 	<Hero />
 {/if}
 {#if $showIntro}
-	<Intro type={"static"} />
+	<Intro {showEarth} {showSun} {isMoving} />
 {/if}
 {#if $showTwoBody}
-	<TwoBody type={"static"} />
+	<TwoBody {showEarth} {showSun} {isMoving} />
 {/if}
 {#if $showThreeBody}
-	<ThreeBody type={"static"} />
+	<ThreeBody {showEarth} {showSun} {isMoving} />
 {/if}
