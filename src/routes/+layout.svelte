@@ -1,4 +1,5 @@
 <script>
+	import "../app.pcss";
 	import "$styles/app.css";
 	import "mathbox/mathbox.css";
 	import { loaded } from "$stores";
@@ -7,9 +8,8 @@
 	onMount(async () => {
 		await tick();
 		$loaded = true;
-		
-		// console.log("loaded", $loaded);
 
+		// console.log("loaded", $loaded);
 	});
 </script>
 

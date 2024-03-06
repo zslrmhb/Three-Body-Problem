@@ -75,7 +75,7 @@
 			sectionConfig.parts.forEach((partId) => {
 				if (!isPartOfGroup(partId)) {
 					partAnimation(partId, sectionConfig);
-					console.log(partId);
+					// console.log(partId);
 				}
 			});
 			handleGroupScenes(sectionConfig);
@@ -208,3 +208,4 @@
 {#if $showThreeBody}
 	<ThreeBody {showEarth} {showSun} {isMoving} />
 {/if}
+

@@ -11,7 +11,7 @@ const preprocess = sveltePreprocess({
 });
 
 const config = {
-	preprocess: sequence([preprocess, vitePreprocess()]),
+	preprocess: [sequence([preprocess, vitePreprocess()]), vitePreprocess({})],
 	kit: {
 		adapter: adapterStatic()
 	},

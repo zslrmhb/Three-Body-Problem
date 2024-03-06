@@ -4,10 +4,10 @@
 	import Title from "./Explorable/Title.svelte";
 	import Article from "./Explorable/Text/Article.svelte";
 	import Threlte from "./Explorable/Visual/Threlte.svelte";
-	import Footer from "./Explorable/Footer.svelte";
-	import Playground from "./Explorable/Visual/Playground.svelte";
+	// import Footer from "./Explorable/Footer.svelte";
+	// import Playground from "./Explorable/Visual/Playground.svelte";
 	$: if ($loaded) {
-		// gsap.set("body", { overflowY: "scroll", overflowX: "visible" });
+		// 	// gsap.set("body", { overflowY: "scroll", overflowX: "visible" });
 		ScrollTrigger.refresh();
 	}
 </script>
@@ -26,7 +26,7 @@
 	</div>
 </article>
 
-<div class="relative flex-col hidden lg:flex">
+<!-- <div class="relative flex-col hidden lg:flex">
 	<Playground />
 	<Footer />
-</div>
+</div>  -->

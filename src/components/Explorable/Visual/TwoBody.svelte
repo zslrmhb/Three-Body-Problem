@@ -14,47 +14,79 @@
 
 	let body1;
 	let body2;
-	$: bodies = [body1, body2];
 
 	let updateIndex = 0;
-	const MAX_TRAJECTORY_POINTS = 2000;
+	const MAX_TRAJECTORY_POINTS = 1000;
 
-	let trajectory1 = Array.from(
-		{ length: MAX_TRAJECTORY_POINTS },
-		() => new Vector3(0, 0, 0)
-	);
-	let trajectory2 = Array.from(
-		{ length: MAX_TRAJECTORY_POINTS },
-		() => new Vector3(0, 0, 0)
-	);
-	$: trajectories = [trajectory1, trajectory2];
+	let positions = [
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0))
+	];
+	let velocities = [
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0))
+	];
+	let accelerations = [
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0))
+	];
 
+	let previousVelocity = [new Vector3(0, 0, 0), new Vector3(0, 0, 0)];
+	let times = Array.from({ length: MAX_TRAJECTORY_POINTS }, () => 0);
+	function updateBodyData(body, index) {
+		if (!body) return;
+
+		const currentVelocity = body.linvel();
+		const deltaTime = (Date.now() - times[updateIndex]) / 1000 + 1;
+
+		const acceleration = new Vector3(
+			(currentVelocity.x - previousVelocity[index].x) / deltaTime,
+			(currentVelocity.y - previousVelocity[index].y) / deltaTime,
+			(currentVelocity.z - previousVelocity[index].z) / deltaTime
+		);
+		// Calculate acceleration
+
+		// Update arrays
+		positions[index][updateIndex].copy(body.translation());
+		velocities[index][updateIndex].copy(currentVelocity);
+		accelerations[index][updateIndex].copy(acceleration);
+		previousVelocity[index].copy(currentVelocity);
+		positions = positions;
+		velocities = velocities;
+		accelerations = accelerations;
+	}
+
+	let plotPoints;
 	useTask(() => {
-		for (let i = 0; i < bodies.length; i++) {
-			if (bodies[i] != null) {
-				const currentPos = bodies[i].translation();
-				trajectories[i][updateIndex].set(
-					currentPos.x,
-					currentPos.y,
-					currentPos.z
-				);
-			}
-		}
+		times[updateIndex] = Date.now();
+		updateBodyData(body1, 0);
+		updateBodyData(body2, 1);
 		updateIndex = (updateIndex + 1) % MAX_TRAJECTORY_POINTS;
-		trajectory1 = [...trajectory1];
-		trajectory2 = [...trajectory2];
 	});
 </script>
 
 {#if isMoving}
 	<T.Mesh>
-		<MeshLineGeometry points={trajectory1} />
+		<MeshLineGeometry points={positions[0]} />
 		<MeshLineMaterial width={0.05} color="#606060" />
 	</T.Mesh>
 	<T.Mesh>
-		<MeshLineGeometry points={trajectory2} />
+		<MeshLineGeometry points={positions[1]} />
 		<MeshLineMaterial width={0.05} color="#606060" />
 	</T.Mesh>
+	<T.Group position={[50, 0, 0]}>
+		<T.Mesh>
+			<MeshLineGeometry points={velocities[0]} />
+			<MeshLineMaterial width={0.05} color="#606060" />
+		</T.Mesh>
+	</T.Group>
+	<T.Group position={[-50, 0, 0]}>
+		<T.Mesh>
+			<MeshLineGeometry points={velocities[1]} />
+			<MeshLineMaterial width={0.05} color="#606060" />
+		</T.Mesh>
+	</T.Group>
+
 {/if}
 
 <T.PerspectiveCamera
