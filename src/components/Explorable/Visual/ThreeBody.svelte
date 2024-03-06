@@ -10,72 +10,93 @@
 	import Sun from "./Sun.svelte";
 	import Earth from "./Earth.svelte";
 
-	export let type = "static";
 	export let showEarth, showSun, isMoving;
 
 	let body1;
 	let body2;
 	let body3;
-	$: bodies = [body1, body2, body3];
-	const MAX_TRAJECTORY_POINTS = 2000;
-	let trajectory1 = Array.from(
-		{ length: MAX_TRAJECTORY_POINTS },
-		() => new Vector3(0, 0, 0)
-	);
-	let trajectory2 = Array.from(
-		{ length: MAX_TRAJECTORY_POINTS },
-		() => new Vector3(0, 0, 0)
-	);
-	let trajectory3 = Array.from(
-		{ length: MAX_TRAJECTORY_POINTS },
-		() => new Vector3(0, 0, 0)
-	);
-	$: trajectories = [trajectory1, trajectory2, trajectory3];
 
 	let updateIndex = 0;
+	const MAX_TRAJECTORY_POINTS = 2000;
 
+	let positions = [
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0))
+	];
+	let velocities = [
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0))
+	];
+	let accelerations = [
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
+		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0))
+	];
+
+	let previousVelocity = [
+		new Vector3(0, 0, 0),
+		new Vector3(0, 0, 0),
+		new Vector3(0, 0, 0)
+	];
+	let times = Array.from({ length: MAX_TRAJECTORY_POINTS }, () => 0);
+
+	function updateBodyData(body, index) {
+		if (!body) return;
+
+		const currentVelocity = body.linvel();
+		const deltaTime = (Date.now() - times[updateIndex]) / 1000 + 1;
+
+		const acceleration = new Vector3(
+			(currentVelocity.x - previousVelocity[index].x) / deltaTime,
+			(currentVelocity.y - previousVelocity[index].y) / deltaTime,
+			(currentVelocity.z - previousVelocity[index].z) / deltaTime
+		);
+		// Calculate acceleration
+
+		// Update arrays
+		positions[index][updateIndex].copy(body.translation());
+		velocities[index][updateIndex].copy(currentVelocity);
+		accelerations[index][updateIndex].copy(acceleration);
+		previousVelocity[index].copy(currentVelocity);
+		positions = positions;
+		velocities = velocities;
+		accelerations = accelerations;
+		console.log(positions);
+	}
 	useTask(() => {
-		for (let i = 0; i < bodies.length; i++) {
-			if (bodies[i] != null) {
-				const currentPos = bodies[i].translation();
-				trajectories[i][updateIndex].set(
-					currentPos.x,
-					currentPos.y,
-					currentPos.z
-				);
-			}
-		}
+		times[updateIndex] = Date.now();
+		updateBodyData(body1, 0);
+		updateBodyData(body2, 1);
+		updateBodyData(body3, 2);
 		updateIndex = (updateIndex + 1) % MAX_TRAJECTORY_POINTS;
-
-		// Trigger reactivity
-		trajectory1 = [...trajectory1];
-		trajectory2 = [...trajectory2];
-		trajectory3 = [...trajectory3];
 	});
-
-	const config = {
-		static: {
-			type: "static",
-			strength: 3,
-			range: 100,
-			gravitationalConstant: undefined
-		}
-	};
 </script>
 
 {#if isMoving}
 	<T.Mesh>
-		<MeshLineGeometry points={trajectory1} />
+		<MeshLineGeometry points={positions[0]} />
 		<MeshLineMaterial width={0.05} color="#606060" />
 	</T.Mesh>
 	<T.Mesh>
-		<MeshLineGeometry points={trajectory2} />
+		<MeshLineGeometry points={positions[1]} />
 		<MeshLineMaterial width={0.05} color="#606060" />
 	</T.Mesh>
 	<T.Mesh>
-		<MeshLineGeometry points={trajectory3} />
+		<MeshLineGeometry points={positions[2]} />
 		<MeshLineMaterial width={0.05} color="#606060" />
 	</T.Mesh>
+	<T.Group position={[0, -30, 30]}>
+		<T.Mesh>
+			<MeshLineGeometry points={velocities[0]} />
+			<MeshLineMaterial width={0.05} color="#606060" />
+		</T.Mesh>
+		<T.Mesh>
+			<MeshLineGeometry points={velocities[1]} />
+			<MeshLineMaterial width={0.05} color="#606060" />
+		</T.Mesh>
+	</T.Group>
 {/if}
 
 <T.PerspectiveCamera

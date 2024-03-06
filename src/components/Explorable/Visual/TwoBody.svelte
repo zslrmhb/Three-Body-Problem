@@ -16,7 +16,7 @@
 	let body2;
 
 	let updateIndex = 0;
-	const MAX_TRAJECTORY_POINTS = 1000;
+	const MAX_TRAJECTORY_POINTS = 2000;
 
 	let positions = [
 		Array.from({ length: MAX_TRAJECTORY_POINTS }, () => new Vector3(0, 0, 0)),
@@ -33,6 +33,7 @@
 
 	let previousVelocity = [new Vector3(0, 0, 0), new Vector3(0, 0, 0)];
 	let times = Array.from({ length: MAX_TRAJECTORY_POINTS }, () => 0);
+
 	function updateBodyData(body, index) {
 		if (!body) return;
 
@@ -56,7 +57,6 @@
 		accelerations = accelerations;
 	}
 
-	let plotPoints;
 	useTask(() => {
 		times[updateIndex] = Date.now();
 		updateBodyData(body1, 0);
@@ -74,19 +74,18 @@
 		<MeshLineGeometry points={positions[1]} />
 		<MeshLineMaterial width={0.05} color="#606060" />
 	</T.Mesh>
-	<T.Group position={[50, 0, 0]}>
+	<T.Group position={[0,-20, 0]}>
 		<T.Mesh>
 			<MeshLineGeometry points={velocities[0]} />
 			<MeshLineMaterial width={0.05} color="#606060" />
 		</T.Mesh>
 	</T.Group>
-	<T.Group position={[-50, 0, 0]}>
+	<T.Group position={[0, -30, 0]}>
 		<T.Mesh>
 			<MeshLineGeometry points={velocities[1]} />
 			<MeshLineMaterial width={0.05} color="#606060" />
 		</T.Mesh>
 	</T.Group>
-
 {/if}
 
 <T.PerspectiveCamera
