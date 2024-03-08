@@ -3,6 +3,7 @@
 	import Part from "./Part.svelte";
 	import Spacer from "./Spacer.svelte";
 	import Bold from "./Bold.svelte";
+	import Tex from "./Tex.svelte";
 </script>
 
 <div id="title-spacer" class="h-[2500px]" />
@@ -29,8 +30,10 @@
 	>
 	<Spacer />
 	<Part id="st-4"
-		>This force is described by the formula " F = G M_1M_2 / r^2"</Part
-	>
+		>This force is described by the formula <Tex
+			expr={"\\colorbox{red}{$F=\\frac{GM_1M_2}{r^2}$}"}
+		/>
+	</Part>
 	<Spacer />
 	<Part id="st-5"
 		>So on objects that have a large mass, like the sun and my planet, this

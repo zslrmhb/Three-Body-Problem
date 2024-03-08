@@ -52,6 +52,7 @@
 		"@threlte/extras": "^8.8.1",
 		"@threlte/rapier": "^2.0.0",
 		"gsap": "^3.12.5",
+		"katex": "^0.16.9",
 		"mathbox": "^2.3.2-rc1",
 		"three": "^0.161.0"
 	}
