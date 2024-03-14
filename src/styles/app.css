@@ -21,3 +21,32 @@
 	padding: 8px;
 	z-index: var(--z-overlay, 1000);
 }
+
+/* Pane Container */
+.pane-container {
+	/* Positioning */
+	position: fixed; /* or 'absolute' depending on your layout */
+	top: 20px; /* Adjust as needed */
+	right: 20px; /* Adjust as needed */
+	z-index: 1000; /* Ensure it's above other elements */
+	
+	/* Styling */
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	
+	/* Initial state - hidden */
+	display: none;
+  }
+  
+  /* Pane Content */
+  .pane-content {
+	padding: 20px;
+  }
+  
+  /* Show the pane when it's open */
+  .pane-container.active {
+	display: block;
+  }
+  

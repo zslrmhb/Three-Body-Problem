@@ -3,9 +3,10 @@
 	import Intro from "./Intro.svelte";
 	import TwoBody from "./TwoBody.svelte";
 	import ThreeBody from "./ThreeBody.svelte";
+	import Playground from "./Playground.svelte";
 	import { gsap } from "$utils/gsap.js";
 	import { onMount } from "svelte";
-	import { showHero, showIntro, showTwoBody, showThreeBody } from "$stores";
+	import { showHero, showIntro, showTwoBody, showThreeBody, showPlayground } from "$stores";
 
 	let mounted = false;
 	let showEarth = false;
@@ -31,7 +32,7 @@
 		"st-10": { showEarth: false, showSun: true, isMoving: false },
 		"st-11": { showEarth: false, showSun: true, isMoving: false },
 		"st-12": { showEarth: false, showSun: true, isMoving: true },
-		"st-13": { showEarth: true, showSun: true, isMoving: true }
+		"st-13": { showEarth: true, showSun: true, isMoving: true },
 		// Add more configurations for other parts...
 	};
 
@@ -59,6 +60,12 @@
 			parts: ["st-10", "st-11", "st-12", "st-13"],
 			store: showThreeBody,
 			partConfigs: partConfigs
+		},
+		{
+			id: "section-4",
+			parts: ['st-14'],
+			store: showPlayground,
+			partConfigs: {}
 		}
 	];
 
@@ -194,6 +201,7 @@
 			.add("step-1")
 			.to("#title", { autoAlpha: 0 }, "step-1");
 	}
+	$:console.log($showPlayground)
 </script>
 
 {#if $showHero}
@@ -209,3 +217,6 @@
 	<ThreeBody {showEarth} {showSun} {isMoving} />
 {/if}
 
+{#if $showPlayground}
+	<Playground type={"static"}/>
+{/if}
