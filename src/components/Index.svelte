@@ -29,13 +29,13 @@
 	</div>
 </article>
 
-<ToPlayground />
 
-<!-- <div class="relative flex-col hidden lg:flex"> -->
+<div class="relative flex-col hidden lg:flex">
+	<ToPlayground />
 	<!-- <Canvas>
 		<World gravity={[0, 0, 0]}>
 			<Playground />
 		</World>
 	</Canvas> -->
 	<!-- <Footer /> -->
-<!-- </div>  -->
+</div> 
