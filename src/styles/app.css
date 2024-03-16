@@ -21,3 +21,31 @@
 	padding: 8px;
 	z-index: var(--z-overlay, 1000);
 }
+
+/* Default button style */
+.button {
+	/* display: inline-block; */
+	z-index: 1000;
+	padding: 10px 20px;
+	font-size: 25px;
+	border: 2px solid #ffffff;
+	border-radius: 5px;
+	background-color: #ffffff;
+	color: #000000;
+	cursor: pointer;
+	text-decoration: none; /* Remove underline for anchor tags */
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  /* Hover effect */
+  .button:hover {
+	background-color: #4677b8;
+	color: #ffffff;
+	border-color: #4677b8;
+  }
+  
+  /* Active effect */
+  .button:active {
+	transform: translateY(10px);
+  }
+  

@@ -4,6 +4,7 @@
 	import Spacer from "./Spacer.svelte";
 	import Bold from "./Bold.svelte";
 	import Tex from "./Tex.svelte";
+	import {Link} from 'svelte-routing';
 </script>
 
 <div id="title-spacer" class="h-[2500px]" />
@@ -75,6 +76,8 @@
 	<Spacer />
 	<Part id="st-13">What is going on?</Part>
 </Section>
+
+<!-- <Spacer /> -->
 
 <Spacer />
 <Spacer />

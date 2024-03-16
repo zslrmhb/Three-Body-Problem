@@ -6,6 +6,9 @@
 	import Threlte from "./Explorable/Visual/Threlte.svelte";
 	// import Footer from "./Explorable/Footer.svelte";
 	// import Playground from "./Explorable/Visual/Playground.svelte";
+	// import { Canvas } from "@threlte/core";
+	// import { World } from "@threlte/rapier";
+	import ToPlayground from "./Explorable/ToPlayground.svelte";
 	$: if ($loaded) {
 		// 	// gsap.set("body", { overflowY: "scroll", overflowX: "visible" });
 		ScrollTrigger.refresh();
@@ -26,7 +29,13 @@
 	</div>
 </article>
 
-<!-- <div class="relative flex-col hidden lg:flex">
-	<Playground />
-	<Footer />
-</div>  -->
+<ToPlayground />
+
+<!-- <div class="relative flex-col hidden lg:flex"> -->
+	<!-- <Canvas>
+		<World gravity={[0, 0, 0]}>
+			<Playground />
+		</World>
+	</Canvas> -->
+	<!-- <Footer /> -->
+<!-- </div>  -->
