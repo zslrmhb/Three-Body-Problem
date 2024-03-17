@@ -1,7 +1,7 @@
 <div id="playground">
     <div class="flex flex-col gap-5 items-left relative">
         <h2 style='font-size: 30px'>To explore the chaotic cycles, hop into the Playground below</h2>
-        <a href="/playground">
+        <a href="../playground">
             <button class='button'>Playground</button>
         </a>
     </div>
