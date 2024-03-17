@@ -31,6 +31,15 @@
 				class="underline decoration-2 underline-offset-8 decoration-neutral text-secondary"
 				>Qirui Zheng</a
 			>
+		<div class="text-lg md:text-xl font-displayAlt text-right">
+			<br />
+			For an introduction to this visulaization, check out this 
+			<a href='https://youtu.be/Lj5xLF84AUI' 
+			target="_blank"
+			rel="noopener noreferrer"
+			class="underline decoration-2 underline-offset-8 decoration-neutral text-secondary">
+			video!</a>
+		</div>
 		</div>
 		<div
 			class="relative alert bg-transparent border-0 flex flex-col mt-10 lg:hidden"
