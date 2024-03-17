@@ -86,6 +86,8 @@
 	<Part id ="st-14" >
 		The rotation of the three celestial bodies is highly unpredictable. It is a classical mathematical conundrum in physics. The interactions of the three celestial bodies interacting only under the consideration of gravitational forces. The problem here is to predict their movements over time, which becomes extremely complex due to the nonlinear nature of gravitational interactions. The advantage of demonstrating this problem through visualization is to provide a clear image of the chaotic cycle. Apart from the traditional explanation that is mostly compiled with words and lengthy formulas. Most important takeaway is the understanding of chaotic behavior, from the increase of one to three celestial body systems. The entropy in the system increases, causing things to be highly unpredictable. This is not well suited for the development of civilizations, we need to find a way out...
 	</Part>
+	<br/>
+	For an interactive version, scroll down for the playground.
 
 </Section>
  
